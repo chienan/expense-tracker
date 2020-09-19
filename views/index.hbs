@@ -1,24 +1,56 @@
-<h2>這是家庭記帳本！</h2>
+<div class="container">
 
-<div class="sort-dropdown">
-  <div class="dropdown">
-    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-      aria-haspopup="true" aria-expanded="false">
-      類別
-    </button>
-    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-      <a class="dropdown-item" href="">飲食</a>
-      <a class="dropdown-item" href="">交通</a>
-      <a class="dropdown-item" href="">娛樂</a>
-      <a class="dropdown-item" href="">學習</a>
-      <a class="dropdown-item" href="">生活用品</a>
-      <a class="dropdown-item" href="">醫療/健康</a>
-      <a class="dropdown-item" href="">水電網路</a>
+  <div class="sort-dropdown">
+    <div class="dropdown">
+      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+        aria-haspopup="true" aria-expanded="false">
+        類別
+      </button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <a class="dropdown-item" href="">飲食</a>
+        <a class="dropdown-item" href="">交通</a>
+        <a class="dropdown-item" href="">娛樂</a>
+        <a class="dropdown-item" href="">學習</a>
+        <a class="dropdown-item" href="">生活用品</a>
+      </div>
     </div>
   </div>
-</div>
 
-<div class="total-amount-section">
-  <h2>總金額</h2>
-  <div class="total-amount">???</div>
-</div>
+  <div class="total-amount-section">
+    <h2>總金額</h2>
+    <div class="total-amount">???</div>
+  </div>
+
+  <div class="list-group mt-5">
+
+    <div class="row d-flex justify-content-around pt-3">
+      <div class="front-part d-flex justify-content-center">
+        <div class="category-part">
+          <p>類別</p>
+        </div>
+        <div class="col-auto mr-auto">
+          <h5 style="display: inline; vertical-align: middle;">
+            項目名稱
+          </h5>
+          <h6>
+            日期
+          </h6>
+        </div>
+
+        <div class="amount-part">
+          金額
+        </div>
+
+      </div>
+
+      <div class="col-auto">
+
+        <a class="btn btn-light">edit</a>
+        <button class="btn btn-light" type="submit">delete</button>
+
+      </div>
+    </div>
+
+
+
+  </div>
