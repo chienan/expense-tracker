@@ -6,10 +6,6 @@ const recordSchema = new Schema({
     type: String,
     required: true
   },
-  category: {
-    type: String,
-    required: true
-  },
   date: {
     type: String,
     required: true
@@ -20,4 +16,14 @@ const recordSchema = new Schema({
   }
 })
 
-module.exports = mongoose.model('Record', recordSchema)
+const categorySchema = new Schema({
+  category: {
+    type: String,
+    required: true
+  }
+})
+
+const Record = mongoose.model('Record', recordSchema)
+const Category = mongoose.model('Category', categorySchema)
+
+module.exports = { Record, Category }
