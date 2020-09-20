@@ -1,24 +1,26 @@
 <div class="container">
 
-  <div class="sort-dropdown">
-    <div class="dropdown">
-      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-        aria-haspopup="true" aria-expanded="false">
-        類別
-      </button>
-      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <a class="dropdown-item" href="">家居物業</a>
-        <a class="dropdown-item" href="">交通出行</a>
-        <a class="dropdown-item" href="">休閒娛樂</a>
-        <a class="dropdown-item" href="">餐飲食品</a>
-        <a class="dropdown-item" href="">其他</a>
+  <div class="d-flex flex-column bd-highlight mb-3 justify-content-center">
+    <div class="sort-dropdown p-2 bd-highlight">
+      <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          類別
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item" href="">家居物業</a>
+          <a class="dropdown-item" href="">交通出行</a>
+          <a class="dropdown-item" href="">休閒娛樂</a>
+          <a class="dropdown-item" href="">餐飲食品</a>
+          <a class="dropdown-item" href="">其他</a>
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="total-amount-section">
-    <h2>總金額</h2>
-    <div class="total-amount">???</div>
+    <div class="total-amount-section p-2 bd-highlight">
+      <span>總金額：</span>
+      <div class="total-amount">{{ getTotal records }}</div>
+    </div>
   </div>
 
   <div class="list-group mt-5">
