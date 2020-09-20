@@ -29,6 +29,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.get('/', (req, res) => {
   RECORD.find()
     .lean()
+    .sort({ _id: 'asc' })
     .then(records => res.render('index', { records }))
     .catch(error => console.error(error))
 
