@@ -47,7 +47,10 @@
       <div class="col-auto">
 
         <a href="./records/{{ this._id }}/edit" class="btn btn-light">edit</a>
-        <button class="btn btn-light" type="submit">delete</button>
+        <form action="./records/{{ this._id }}/delete" method="POST" style="display: inline;">
+          <button class="btn btn-light" type="submit">delete</button>
+        </form>
+
 
       </div>
     </div>
