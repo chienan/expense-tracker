@@ -49,6 +49,28 @@ app.post('/records', (req, res) => {
     .catch(error => console.log(console.log(error)))
 })
 
+//編輯支出
+app.get('/records/:id/edit', (req, res) => {
+  const id = req.params.id
+  return RECORD.findById(id)
+    .lean()
+    .then((record) => res.render('edit', { record }))
+    .catch(error => console.log(error))
+})
+
+app.post('/records/:id/edit', (req, res) => {
+  const id = req.params.id
+  const name = req.params.name
+  return RECORD.findById(id)
+    .then(record => {
+      record = Object.assign(record, req.body)
+      return record.save()
+    })
+    .then(() => res.redirect('/'))
+    .catch(error => console.log(error))
+})
+
+
 
 app.listen(3000, () => {
   console.log('App is running on http://localhost:3000')

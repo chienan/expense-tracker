@@ -1,0 +1,32 @@
+<div class="container">
+  <div class="row my-auto justify-content-center align-items-center text-center">
+    <form action="/records/{{ record._id }}/edit" method="POST">
+
+      <div class="form-group">
+        <select id="new-category" class="form-control" name="category" value="{{ record.category }}" required>
+          <option>支出類別</option>
+          <option>家居物業</option>
+          <option>交通出行</option>
+          <option>休閒娛樂</option>
+          <option>餐飲食品</option>
+          <option>其他</option>
+        </select>
+      </div>
+
+      <input type="text" placeholder="支出名稱" name="name" value="{{ record.name }}" class="mb-2 form-control"
+        style="width: 300px;" required>
+
+      <input type="date" placeholder="日期" name="date" value="{{ record.date }}" class="mb-2 form-control"
+        style="width: 300px;" required>
+
+      <input type="number" placeholder="金額" name="amount" value="{{ record.amount }}" class="mb-2 form-control"
+        style="width: 300px;" required>
+
+
+      <button type="submit" class="btn btn-outline-secondary">修改</button>
+      <a href="/">back</a>
+
+
+    </form>
+  </div>
+</div>
