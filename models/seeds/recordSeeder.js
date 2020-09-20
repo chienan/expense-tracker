@@ -1,10 +1,13 @@
 const mongoose = require('mongoose')
-const models = require('../record')
+const models = require('../Record')
 
 mongoose.connect('mongodb://localhost/expense-tracker', { useNewUrlParser: true, useUnifiedTopology: true })
 
 const db = mongoose.connection
 
+db.on('error', () => {
+  console.log('mongodb error!')
+})
 
 db.once('open', () => {
   console.log('mongodb connect!')

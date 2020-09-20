@@ -2,6 +2,8 @@ const express = require('express')
 const mongoose = require('mongoose')
 const exphbs = require('express-handlebars')
 
+const RECORD = require('./models/Record')
+
 const app = express()
 
 
@@ -23,7 +25,11 @@ app.set('view engine', 'hbs')
 
 
 app.get('/', (req, res) => {
-  res.render('index')
+  RECORD.find()
+    .lean()
+    .then(records => res.render('index', { records }))
+    .catch(error => console.error(error))
+
 })
 
 app.listen(3000, () => {

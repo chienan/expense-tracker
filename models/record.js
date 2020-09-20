@@ -13,17 +13,12 @@ const recordSchema = new Schema({
   amount: {
     type: Number,
     required: true
-  }
-})
-
-const categorySchema = new Schema({
+  },
   category: {
     type: String,
     required: true
   }
 })
 
-const Record = mongoose.model('Record', recordSchema)
-const Category = mongoose.model('Category', categorySchema)
 
-module.exports = { Record, Category }
+module.exports = mongoose.model('Record', recordSchema)

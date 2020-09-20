@@ -22,23 +22,24 @@
   </div>
 
   <div class="list-group mt-5">
+    {{#each records}}
 
     <div class="row d-flex justify-content-around pt-3">
       <div class="front-part d-flex justify-content-center">
         <div class="category-part">
-          <p>類別</p>
+          <p>{{this.category}}</p>
         </div>
         <div class="col-auto mr-auto">
           <h5 style="display: inline; vertical-align: middle;">
-            項目名稱
+            {{this.name}}
           </h5>
           <h6>
-            日期
+            {{this.date}}
           </h6>
         </div>
 
         <div class="amount-part">
-          金額
+          {{this.amount}}
         </div>
 
       </div>
@@ -50,7 +51,5 @@
 
       </div>
     </div>
-
-
-
+    {{/each}}
   </div>
