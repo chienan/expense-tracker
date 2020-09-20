@@ -4,6 +4,7 @@ const exphbs = require('express-handlebars')
 const bodyParser = require('body-parser')
 
 const RECORD = require('./models/Record')
+const CATEGORY = require('./models/Category')
 
 const app = express()
 
