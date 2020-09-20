@@ -1,6 +1,7 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const exphbs = require('express-handlebars')
+const bodyParser = require('body-parser')
 
 const RECORD = require('./models/Record')
 
@@ -22,8 +23,9 @@ db.once('open', () => {
 
 app.engine('hbs', exphbs({ defaultLayout: 'main', extname: '.hbs' }))
 app.set('view engine', 'hbs')
+app.use(bodyParser.urlencoded({ extended: true }))
 
-
+//瀏覽所有支出
 app.get('/', (req, res) => {
   RECORD.find()
     .lean()
@@ -31,6 +33,22 @@ app.get('/', (req, res) => {
     .catch(error => console.error(error))
 
 })
+
+//新增支出
+app.get('/records/new', (req, res) => {
+  return res.render('new')
+})
+
+
+app.post('/records', (req, res) => {
+  let { name, category, date, amount } = req.body
+
+
+  return RECORD.create({ name, category, date, amount })
+    .then(() => res.redirect('/'))
+    .catch(error => console.log(console.log(error)))
+})
+
 
 app.listen(3000, () => {
   console.log('App is running on http://localhost:3000')
