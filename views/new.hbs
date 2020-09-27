@@ -3,13 +3,13 @@
     <form action="/records" method="POST">
 
       <div class="form-group">
-        <select id="new-category" class="form-control" name="category" required>
-          <option>支出類別</option>
-          <option>家居物業</option>
-          <option>交通出行</option>
-          <option>休閒娛樂</option>
-          <option>餐飲食品</option>
-          <option>其他</option>
+        <select class="form-control" id="filter-category" name="category" onchange="submit">
+
+          <option disabled selected>支出類別</option>
+          {{#each categories}}
+          <button name="filterCategory" value="{{ this.name }}" class="dropdown-item">{{ this.name }}</button>
+          <option value="{{this.name}}">{{this.name}}</option>
+          {{/each}}
         </select>
       </div>
 

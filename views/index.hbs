@@ -5,21 +5,26 @@
     <!-- filter -->
     <form method="GET" action="/filter">
       <div class="filter-category">
+
+
         <select class="form-control" id="filter-category" name="category" onchange="submit">
+
           <option disabled selected>支出類別</option>
           {{#each categories}}
-          <option value="{{this.category}}" {{#eq filteredCategory "{{this.category}}"}}selected{{/eq}}>
-            {{this.category}}</option>
+          <button name="filterCategory" value="{{ this.name }}" class="dropdown-item">{{ this.name }}</button>
+          <option value="{{this.name}}">{{this.name}}</option>
           {{/each}}
         </select>
+
+
       </div>
     </form>
 
 
 
+
     <div class="total-amount-section p-2 bd-highlight">
-      <span>總金額：</span>
-      <div class="total-amount">{{ getTotal records }}</div>
+      <!--  <span>總金額：</span getTotal records </div> -->
     </div>
   </div>
 
@@ -28,8 +33,8 @@
 
     <div class="row d-flex justify-content-around pt-3">
       <div class="front-part d-flex justify-content-center">
-        <div class="category-part">
-          {{{ this.icon }}}
+        <div class="category-part" title="{{ this.category }}">
+          <i class="{{this.tag}}"></i>
         </div>
         <div class="col-auto mr-auto">
           <h5 style="display: inline; vertical-align: middle;">

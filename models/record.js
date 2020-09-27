@@ -1,25 +1,25 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
-
 const recordSchema = new Schema({
   name: {
     type: String,
-    required: true
+    required: false
   },
   category: {
     type: String,
-    required: true
+    required: false
   },
   date: {
     type: String,
-    required: true
+    required: false
   },
   amount: {
-    type: Number,
-    required: true
+    type: String,
+    required: false
   },
-  icon: {
-    type: String
+  tag: {
+    type: String,
+    required: false
   }
 })
 

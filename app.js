@@ -22,31 +22,42 @@ db.once('open', () => {
 })
 
 
-//app.engine('hbs', exphbs({ defaultLayout: 'main', extname: '.hbs' }))
+app.engine('hbs', exphbs({ defaultLayout: 'main', extname: '.hbs' }))
 //計算總額
-app.engine('hbs', exphbs({
-  defaultLayout: 'main',
-  helpers: {
-    getTotal: function (records) {
-      const total = records.reduce(function (a, b) { return a + b.amount; }, 0);
-      return total;
-    }
-  },
-  extname: '.hbs'
-}))
+//app.engine('hbs', exphbs({
+//  defaultLayout: 'main',
+//  helpers: {
+//    getTotal: function (records) {
+//      const total = records.reduce(function (a, b) { return a + b.amount; }, 0);
+//      return total;
+//    }
+//  },
+//  extname: '.hbs'
+//}))
 
 app.set('view engine', 'hbs')
 app.use(bodyParser.urlencoded({ extended: true }))
 
+
 //瀏覽所有支出
+
 app.get('/', (req, res) => {
-  RECORD.find()
+  CATEGORY.find()
     .lean()
     .sort({ _id: 'asc' })
-    .then(records => res.render('index', { records }))
+    .then(categories => {
+      RECORD.find()
+        .lean()
+        .sort({ _id: 'asc' })
+        .then(records => {
+          res.render('index', { records, categories })
+        })
+        .catch(error => console.error(error))
+    })
     .catch(error => console.error(error))
-
 })
+
+
 
 //新增支出
 app.get('/records/new', (req, res) => {
