@@ -22,18 +22,18 @@ db.once('open', () => {
 })
 
 
-app.engine('hbs', exphbs({ defaultLayout: 'main', extname: '.hbs' }))
+//app.engine('hbs', exphbs({ defaultLayout: 'main', extname: '.hbs' }))
 //計算總額
-//app.engine('hbs', exphbs({
-//  defaultLayout: 'main',
-//  helpers: {
-//    getTotal: function (records) {
-//      const total = records.reduce(function (a, b) { return a + b.amount; }, 0);
-//      return total;
-//    }
-//  },
-//  extname: '.hbs'
-//}))
+app.engine('hbs', exphbs({
+  defaultLayout: 'main',
+  helpers: {
+    getTotal: function (records) {
+      const total = records.reduce(function (a, b) { return a + b.amount; }, 0);
+      return total;
+    }
+  },
+  extname: '.hbs'
+}))
 
 app.set('view engine', 'hbs')
 app.use(bodyParser.urlencoded({ extended: true }))
