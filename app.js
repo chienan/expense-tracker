@@ -61,26 +61,70 @@ app.get('/', (req, res) => {
 
 //新增支出
 app.get('/records/new', (req, res) => {
-  return res.render('new')
+  CATEGORY.find()
+    .lean()
+    .sort({ _id: 'asc' })
+    .then(categories => res.render('new', { categories }))
+    .catch(error => console.error(error))
 })
 
 
 app.post('/records', (req, res) => {
-  let { name, category, date, amount } = req.body
+  //  const record = req.body
+  //  CATEGORY.findOne({ title: record.category })
+  //    .then(category => {
+  //      record.category = category._id
+
+  //      RECORD.create(record)
+  //        .then(record => {
+  //          category.records.push(record._id)
+  //          category.save()
+  //        })
+  //        .then(() => res.redirect('/'))
+  //        .catch(error => console.error(error))
+  //    })
+  //    .catch(error => console.error(error))
 
 
-  return RECORD.create({ name, category, date, amount })
+  let { name, category, date, amount, } = req.body
+  let categoryArr = []
+
+  categoryArr = categoryArr.concat(category.split(','))
+  return RECORD.create
+    ({
+      name: name,
+      category: categoryArr[0],
+      date: date,
+      amount: amount,
+      tag: categoryArr[1]
+    })
     .then(() => res.redirect('/'))
     .catch(error => console.log(console.log(error)))
 })
 
 //編輯支出
 app.get('/records/:id/edit', (req, res) => {
-  const id = req.params.id
-  return RECORD.findById(id)
+
+  let categories = []
+  CATEGORY.find()
     .lean()
-    .then((record) => res.render('edit', { record }))
-    .catch(error => console.log(error))
+    .sort({ _id: 'asc' })
+    .then(all => categories = all)
+    .catch(error => console.error(error))
+
+  const id = req.params.id
+  RECORD.findById(id)
+    //    .populate('category')
+    .lean()
+    .then(record => res.render('edit', { record, categories }))
+    .catch(error => console.error(error))
+
+  //  const id = req.params.id
+  //  return RECORD.findById(id)
+  //    .lean()
+  //    .then((record) => { res.render('edit', { record }) })
+  //    .catch(error => console.log(error))
+
 })
 
 app.post('/records/:id/edit', (req, res) => {

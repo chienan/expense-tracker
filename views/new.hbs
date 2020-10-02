@@ -5,11 +5,13 @@
       <div class="form-group">
         <select class="form-control" id="filter-category" name="category" onchange="submit">
 
-          <option disabled selected>支出類別</option>
+
+          <option value="其他,fas fa-pen">選擇類別</option>
+
           {{#each categories}}
-          <button name="filterCategory" value="{{ this.name }}" class="dropdown-item">{{ this.name }}</button>
-          <option value="{{this.name}}">{{this.name}}</option>
+          <option value="{{this.name}},{{this.tag}}">{{this.name}}</option>
           {{/each}}
+
         </select>
       </div>
 
