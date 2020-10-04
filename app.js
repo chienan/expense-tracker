@@ -40,7 +40,6 @@ app.use(bodyParser.urlencoded({ extended: true }))
 
 
 //瀏覽所有支出
-
 app.get('/', (req, res) => {
   CATEGORY.find()
     .lean()
@@ -129,14 +128,33 @@ app.get('/records/:id/edit', (req, res) => {
 
 app.post('/records/:id/edit', (req, res) => {
   const id = req.params.id
-  const name = req.params.name
+  let { name, category, date, amount } = req.body
+  if (!name.trim()) name = '未命名的支出'
+  if (!amount.trim()) amount = '0'
+  let categoryArr = []
+  categoryArr = categoryArr.concat(category.split(','))
   return RECORD.findById(id)
     .then(record => {
-      record = Object.assign(record, req.body)
+      record.name = name
+      record.category = categoryArr[0]
+      record.date = date
+      record.amount = amount
+      record.tag = categoryArr[1]
       return record.save()
     })
-    .then(() => res.redirect('/'))
-    .catch(error => console.log(error))
+    .then(() => {
+      return res.redirect('/')
+    })
+    .catch(error => console.error(error))
+  //  const id = req.params.id
+  //  const name = req.params.name
+  //  return RECORD.findById(id)
+  //    .then(record => {
+  //      record = Object.assign(record, req.body)
+  //      return record.save()
+  //    })
+  //    .then(() => res.redirect('/'))
+  //    .catch(error => console.log(error))
 })
 
 //刪除支出
