@@ -22,18 +22,18 @@ db.once('open', () => {
 })
 
 
-//app.engine('hbs', exphbs({ defaultLayout: 'main', extname: '.hbs' }))
+app.engine('hbs', exphbs({ defaultLayout: 'main', extname: '.hbs' }))
 //計算總額
-app.engine('hbs', exphbs({
-  defaultLayout: 'main',
-  helpers: {
-    getTotal: function (records) {
-      const total = records.reduce(function (a, b) { return a + b.amount; }, 0);
-      return total;
-    }
-  },
-  extname: '.hbs'
-}))
+//app.engine('hbs', exphbs({
+//  defaultLayout: 'main',
+//  helpers: {
+//    getTotal: function (records) {
+//      const total = records.reduce(function (a, b) { return a + b.amount; }, 0);
+//      return total;
+//    }
+//  },
+//  extname: '.hbs'
+//}))
 
 app.set('view engine', 'hbs')
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -41,17 +41,42 @@ app.use(bodyParser.urlencoded({ extended: true }))
 
 //瀏覽所有支出
 app.get('/', (req, res) => {
-  CATEGORY.find()
+  RECORD.find()
     .lean()
-    .sort({ _id: 'asc' })
-    .then(categories => {
-      RECORD.find()
+    .sort({ name: 'desc' })
+    .then(records => {
+      let totalAmount = Number()
+      records.forEach(item => {
+        totalAmount += Number(item.amount)
+      })
+      CATEGORY.find()
         .lean()
-        .sort({ _id: 'asc' })
-        .then(records => {
-          res.render('index', { records, categories })
+        .then(categories => {
+          const newCategory = []
+          categories.forEach(item => {
+            newCategory.push(item)
+          })
+          return res.render('index', {
+            records,
+            categories: newCategory,
+            totalAmount: totalAmount.toLocaleString('zh-TW', { currency: 'TWD' })
+          })
         })
-        .catch(error => console.error(error))
+
+
+      //  CATEGORY.find()
+      //    .lean()
+      //    .sort({ _id: 'asc' })
+      //    .then(categories => {
+      //      RECORD.find()
+      //        .lean()
+      //        .sort({ _id: 'asc' })
+      //        .then(records => {
+      //          res.render('index', { records, categories })
+      //        })
+
+
+
     })
     .catch(error => console.error(error))
 })
@@ -164,6 +189,41 @@ app.post('/records/:id/delete', (req, res) => {
     .then(record => record.remove())
     .then(() => res.redirect('/'))
     .catch(error => console.log(error))
+})
+
+
+//搜尋支出
+app.get('/search', (req, res) => {
+  const filterTarget = req.query.filterCategory
+  RECORD.find()
+    .lean()
+    .then(records => {
+
+      let filteredRecordArr = records.filter(item => {
+        return item.category === filterTarget
+      })
+      if (filterTarget === '依照類別搜尋') filteredRecordArr = records
+      let filteredAmount = Number()
+      filteredRecordArr.forEach(item => {
+        filteredAmount += Number(item.amount)
+      })
+
+      CATEGORY.find()
+        .lean()
+        .then(categories => {
+          const newCategory = []
+          categories.forEach(item => {
+            newCategory.push(item)
+          })
+          return res.render('index', {
+            records: filteredRecordArr,
+            categories: newCategory,
+            totalAmount: filteredAmount.toLocaleString('zh-TW', { currency: 'TWD' }),
+            filterTarget
+          })
+        })
+    })
+    .catch(error => console.error(error))
 })
 
 
